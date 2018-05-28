@@ -1,0 +1,101 @@
+﻿@model DataObjects.Category
+@{
+    ViewBag.Title = @Model.Name;
+}
+
+<br />
+<br />
+<div class="row">
+    <div class="col-xs-12 col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+            @if (Model.Name == "TShirts")
+            {
+                <li class="active">
+                    <a href="~/StoreFront/Index/1">TShirts</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="~/StoreFront/Index/1">TShirts</a>
+                </li>
+            }
+            @if (Model.Name == "Hoodies")
+            {
+                <li class="active">
+                    <a href="~/StoreFront/Index/2">Hoodies</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="~/StoreFront/Index/2">Hoodies</a>
+                </li>
+            }
+            @if (Model.Name == "Mugs")
+            {
+                <li class="active">
+                    <a href="~/StoreFront/Index/3">Mugs</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="~/StoreFront/Index/3">Mugs</a>
+                </li>
+            }
+            @if (Model.Name == "Frames")
+            {
+                <li class="active">
+                    <a href="~/StoreFront/Index/4">Frames</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="~/StoreFront/Index/4">Frames</a>
+                </li>
+            }
+
+        </ul>
+    </div>
+    <div class="col-xs-12 col-md-9">
+        <div class="row">
+            @if (Model.Products!=null && Model.Products.Count > 0)
+            {
+                foreach (var product in Model.Products)
+                 {
+                     <div class="col-xs-12 col-md-3">
+                         <div class="thumbnail">
+                             <img class="img-responsive" src="~/Content/Images/Products/@(Model.Id)/@(product.Name).png">
+                             <div class="caption text-center">
+                                 <p>
+                                     <b>Name:</b> <span>@product.Name</span>
+                                 </p>
+                                 <p>
+                                     <b>Price:</b> <span>@product.Price USD</span>
+                                 </p>
+                                 <p class="text-center">
+                                     @Html.ActionLink("Add to cart", "AddToCart", "ShoppingCart", new {id = product.Id}, new {@class = "btn btn-info"})
+                                 </p>
+                             </div>
+                         </div>
+                     </div>
+                 }
+            }
+            else
+            {
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                         <div class="thumbnail">
+                             <img class="img-responsive" src="~/Content/Images/ComingSoon.png">
+                             <div class="caption text-center">
+                                 <p class="text-center">
+                                     Come back to check for new items.......
+                                 </p>
+                             </div>
+                         </div>
+                     </div>
+            }
+        </div>
+    </div>
+</div>

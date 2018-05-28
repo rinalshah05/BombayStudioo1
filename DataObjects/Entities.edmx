@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BombayStudiooDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="MobileNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsReseller" Type="bit" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="45" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="LastUpdated" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Size">
+          <Key>
+            <PropertyRef Name="SizeId" />
+          </Key>
+          <Property Name="SizeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sizes" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="TShirts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TShirtName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fabric" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_dbo_Products_dbo_Categories_CategoryId">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BombayStudiooDBModelStoreContainer">
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Size" EntityType="Self.Size" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TShirts" EntityType="Self.TShirts" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Products_dbo_Categories_CategoryId" Association="Self.FK_dbo_Products_dbo_Categories_CategoryId">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BombayStudiooDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsReseller" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Size">
+          <Key>
+            <PropertyRef Name="SizeId" />
+          </Key>
+          <Property Name="SizeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sizes" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TShirt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TShirtName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fabric" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="BombayStudiooDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Logins" EntityType="Self.Login" />
+          <EntitySet Name="Sizes" EntityType="Self.Size" />
+          <EntitySet Name="TShirts" EntityType="Self.TShirt" />
+          <EntitySet Name="Categories" EntityType="BombayStudiooDBModel.Category" />
+          <EntitySet Name="Products" EntityType="BombayStudiooDBModel.Product" />
+          <AssociationSet Name="FK_dbo_Products_dbo_Categories_CategoryId" Association="BombayStudiooDBModel.FK_dbo_Products_dbo_Categories_CategoryId">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="BombayStudiooDBModel.FK_dbo_Products_dbo_Categories_CategoryId" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastUpdated" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="BombayStudiooDBModel.FK_dbo_Products_dbo_Categories_CategoryId" FromRole="Product" ToRole="Category" />
+        </EntityType>
+        <Association Name="FK_dbo_Products_dbo_Categories_CategoryId">
+          <End Type="BombayStudiooDBModel.Category" Role="Category" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BombayStudiooDBModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BombayStudiooDBModelStoreContainer" CdmEntityContainer="BombayStudiooDBEntities">
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="BombayStudiooDBModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsReseller" ColumnName="IsReseller" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sizes">
+            <EntityTypeMapping TypeName="BombayStudiooDBModel.Size">
+              <MappingFragment StoreEntitySet="Size">
+                <ScalarProperty Name="SizeId" ColumnName="SizeId" />
+                <ScalarProperty Name="Sizes" ColumnName="Sizes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TShirts">
+            <EntityTypeMapping TypeName="BombayStudiooDBModel.TShirt">
+              <MappingFragment StoreEntitySet="TShirts">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TShirtName" ColumnName="TShirtName" />
+                <ScalarProperty Name="Fabric" ColumnName="Fabric" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="BombayStudiooDBModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="BombayStudiooDBModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
